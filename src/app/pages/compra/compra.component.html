@@ -40,6 +40,11 @@
               }})</mat-option
             >
           </mat-select>
+          <mat-hint
+            *ngIf="productos.length == 0 && options.value.empresa && !spinner"
+            align="end"
+            >No hay productos disponibles</mat-hint
+          >
         </mat-form-field>
         <br />
         <mat-form-field class="cantidad">
@@ -55,7 +60,7 @@
         </mat-form-field>
         <br />
         <span *ngIf="totalCompra"
-          >Precio final: {{ totalCompra | currency }}</span
+          >Precio final: <strong>{{ totalCompra | currency }}</strong></span
         >
         <br />
         <button
@@ -69,5 +74,11 @@
         </button>
       </form>
     </div>
+  </div>
+  <div class="row justify-content-center my-4">
+    <mat-spinner
+      diameter="50"
+      *ngIf="(proveedores.length == 0 && compradores.length == 0) || spinner"
+    ></mat-spinner>
   </div>
 </div>

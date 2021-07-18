@@ -15,12 +15,13 @@ export class TablaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   options!: FormGroup;
+  primera_busqueda: boolean = true;
   empresaControl = new FormControl();
   productoControl = new FormControl();
   compradorControl = new FormControl();
   dateStart = new FormControl();
   dateEnd = new FormControl();
-  progress!: boolean;
+  spinner!: boolean;
   ventas!: MatTableDataSource<Venta>;
   displayedColumns: string[] = [
     'id',
@@ -44,7 +45,7 @@ export class TablaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.progress = true;
+    this.spinner = true;
     this.filtrar();
   }
 
@@ -55,7 +56,7 @@ export class TablaComponent implements OnInit {
   }
 
   filtrar() {
-    this.progress = true;
+    this.spinner = true;
     const empresa = this.options.get('empresa')?.value;
     const producto = this.options.get('producto')!.value;
     const comprador = this.options.get('comprador')!.value;
@@ -72,8 +73,9 @@ export class TablaComponent implements OnInit {
         f_fin?.toISOString()
       )
       .subscribe((ventas) => {
+        if (this.primera_busqueda) this.primera_busqueda = false;
         this.ventas = new MatTableDataSource<Venta>(ventas);
-        this.progress = false;
+        this.spinner = false;
         this.ventas.paginator = this.paginator;
         this.ventas.sort = this.sort;
       });

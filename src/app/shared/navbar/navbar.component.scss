@@ -2,6 +2,7 @@
   flex: 1 1 auto;
 }
 button {
+  height: 100%;
   margin-left: 10px;
   margin-right: 10px;
   background-color: transparent;
@@ -14,5 +15,6 @@ button {
 }
 a {
   color: white;
+  font-weight: bold;
   text-decoration: none;
 }

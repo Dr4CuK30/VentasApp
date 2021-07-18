@@ -19,6 +19,7 @@ import { DatosService } from '../../services/datos.service';
 })
 export class CompraComponent implements OnInit {
   totalCompra!: number | null;
+  spinner: boolean = false;
   proveedores!: Empresa[];
   compradores!: Persona[];
   productos: Producto[] = [];
@@ -56,12 +57,13 @@ export class CompraComponent implements OnInit {
   }
 
   loadProductos(event: MatSelectChange) {
-    this.toastr.success('Cargados correctamente');
+    this.spinner = true;
     this.productoControl.reset();
     this.datosService.getProductos(event.value).subscribe((productos) => {
       this.productos = productos;
       if (productos.length != 0) this.options.controls.producto.enable();
       else this.options.controls.producto.disable();
+      this.spinner = false;
     });
   }
 
@@ -71,12 +73,14 @@ export class CompraComponent implements OnInit {
   }
 
   comprar() {
+    this.spinner = true;
     if (this.options.valid) {
       const valores = this.options.value;
       const { empresa, ...venta } = valores;
       this.datosService
         .createVenta({ ...venta, producto: venta.producto.id })
         .subscribe((res) => {
+          this.spinner = false;
           if (res.error) {
             return this.toastr.error('Error al realizar registro');
           }

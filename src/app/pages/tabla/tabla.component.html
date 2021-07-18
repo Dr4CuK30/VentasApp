@@ -1,5 +1,14 @@
 <div class="container">
   <div class="row justify-content-center">
+    <div
+      class="alert alert-info text-center"
+      role="alert"
+      *ngIf="spinner && primera_busqueda"
+    >
+      Debido a que se esta utilizando un servidor gratuito para el Rest API,
+      puede que la primera busqueda demore un poco debido a que este entra en
+      modo de hibernación al no usarse durante un timepo.
+    </div>
     <div class="col text-center mt-4">
       <h1 class="title">Ventas Registradas</h1>
     </div>
@@ -79,12 +88,12 @@
     <div
       class="alert alert-danger text-center"
       role="alert"
-      *ngIf="ventas?.filteredData?.length == 0 && !progress"
+      *ngIf="ventas?.filteredData?.length == 0 && !spinner"
     >
       No se han encontrado resultados
     </div>
 
-    <div class="col-1 mt-5" *ngIf="progress">
+    <div class="col-1 mt-5" *ngIf="spinner">
       <mat-spinner strokeWidth="5" diameter="50"></mat-spinner>
     </div>
   </div>
