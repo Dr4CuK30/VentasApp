@@ -12,7 +12,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompraComponent } from './pages/compra/compra.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, TablaComponent, CompraComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    TablaComponent,
+    CompraComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

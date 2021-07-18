@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Venta } from 'src/app/interfaces/venta.interface';
-import { VentasService } from '../../services/ventas.service';
+import { DatosService } from '../../services/datos.service';
 
 @Component({
   selector: 'app-tabla',
@@ -33,7 +33,7 @@ export class TablaComponent implements OnInit {
     'comprador',
   ];
 
-  constructor(private ventasService: VentasService, private fb: FormBuilder) {
+  constructor(private datosService: DatosService, private fb: FormBuilder) {
     this.options = fb.group({
       empresa: this.empresaControl,
       producto: this.productoControl,
@@ -45,12 +45,7 @@ export class TablaComponent implements OnInit {
 
   ngOnInit(): void {
     this.progress = true;
-    this.ventasService.getVentas().subscribe((ventas) => {
-      this.ventas = new MatTableDataSource<Venta>(ventas);
-      this.progress = false;
-      this.ventas.paginator = this.paginator;
-      this.ventas.sort = this.sort;
-    });
+    this.filtrar();
   }
 
   cleanForm() {
@@ -68,7 +63,7 @@ export class TablaComponent implements OnInit {
     let f_fin = this.options.get('end')!.value;
     if (f_inicio) f_inicio = new Date(f_inicio);
     if (f_fin) f_fin = new Date(f_fin);
-    this.ventasService
+    this.datosService
       .getVentas(
         empresa,
         comprador,
