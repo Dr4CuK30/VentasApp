@@ -10,6 +10,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { TablaComponent } from './pages/tabla/tabla.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompraComponent } from './pages/compra/compra.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CompraComponent } from './pages/compra/compra.component';
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

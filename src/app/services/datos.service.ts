@@ -2,15 +2,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Empresa } from '../interfaces/empresa.interface';
-import { Venta } from '../interfaces/venta.interface';
+import { Venta, VentaCreacion } from '../interfaces/venta.interface';
 import { Persona } from '../interfaces/persona.interface';
 import { Producto } from '../interfaces/producto.interface';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DatosService {
-  baseUrl: String = 'http://localhost:3000';
+  baseUrl: String = environment.api_url;
 
   constructor(private http: HttpClient) {}
 
@@ -42,5 +43,13 @@ export class DatosService {
 
   getProductos(id: number) {
     return this.http.get<Producto[]>(this.baseUrl + `/empresas/${id}`);
+  }
+
+  createVenta(venta: VentaCreacion) {
+    console.log(venta);
+    return this.http.post<{ [name: string]: any }>(
+      this.baseUrl + `/ventas`,
+      venta
+    );
   }
 }

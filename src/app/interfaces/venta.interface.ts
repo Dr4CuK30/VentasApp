@@ -8,3 +8,9 @@ export interface Venta {
   valor_total: string;
   comprador: string;
 }
+
+export interface VentaCreacion {
+  producto: number;
+  cantidad: number;
+  persona: number;
+}
