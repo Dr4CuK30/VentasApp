@@ -9,9 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { TablaComponent } from './pages/tabla/tabla.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CompraComponent } from './pages/compra/compra.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, TablaComponent],
+  declarations: [AppComponent, NavbarComponent, TablaComponent, CompraComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

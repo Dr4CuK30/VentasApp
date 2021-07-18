@@ -2,13 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { TablaComponent } from './pages/tabla/tabla.component';
+import { CompraComponent } from './pages/compra/compra.component';
 
 const routes: Routes = [
   {
-    path: 'ventas',
+    path: '',
     component: TablaComponent,
   },
-  { path: '**', redirectTo: 'ventas' },
+  {
+    path: 'comprar',
+    component: CompraComponent,
+  },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
