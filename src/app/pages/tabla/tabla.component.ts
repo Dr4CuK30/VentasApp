@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Venta } from 'src/app/interfaces/venta.interface';
 import { VentasService } from '../../services/ventas.service';
 
@@ -14,6 +12,8 @@ import { VentasService } from '../../services/ventas.service';
   styleUrls: ['./tabla.component.scss'],
 })
 export class TablaComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   options!: FormGroup;
   empresaControl = new FormControl();
   productoControl = new FormControl();
@@ -21,8 +21,7 @@ export class TablaComponent implements OnInit {
   dateStart = new FormControl();
   dateEnd = new FormControl();
   progress!: boolean;
-
-  ventas: Venta[] = [];
+  ventas!: MatTableDataSource<Venta>;
   displayedColumns: string[] = [
     'id',
     'empresa',
@@ -47,8 +46,10 @@ export class TablaComponent implements OnInit {
   ngOnInit(): void {
     this.progress = true;
     this.ventasService.getVentas().subscribe((ventas) => {
-      this.ventas = ventas;
+      this.ventas = new MatTableDataSource<Venta>(ventas);
       this.progress = false;
+      this.ventas.paginator = this.paginator;
+      this.ventas.sort = this.sort;
     });
   }
 
@@ -76,8 +77,10 @@ export class TablaComponent implements OnInit {
         f_fin?.toISOString()
       )
       .subscribe((ventas) => {
-        this.ventas = ventas;
+        this.ventas = new MatTableDataSource<Venta>(ventas);
         this.progress = false;
+        this.ventas.paginator = this.paginator;
+        this.ventas.sort = this.sort;
       });
   }
 }
