@@ -70,7 +70,7 @@
       class="col-12 mat-elevation-z8"
       *ngIf="ventas?.filteredData?.length != 0"
     >
-      <table mat-table matSort [dataSource]="ventas">
+      <table mat-table matSort [dataSource]="ventas" class="text-center">
         <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ col.replace("_", " ") | titlecase }}
